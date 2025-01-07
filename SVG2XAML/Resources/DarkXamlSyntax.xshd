@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SyntaxDefinition name="XAML" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+    <Color name="Comment" foreground="#FF6A9955"/>      <!-- 浅绿色 -->
+    <Color name="Tag" foreground="#FF569CD6"/>          <!-- 浅蓝色 -->
+    <Color name="TagBracket" foreground="#FF808080"/>   <!-- 灰色 -->
+    <Color name="Attribute" foreground="#FF9CDCFE"/>    <!-- 天蓝色 -->
+    <Color name="AttributeValue" foreground="#FFD4D4D4"/><!-- 浅灰色 -->
+    <Color name="String" foreground="#FFCE9178"/>       <!-- 橙色 -->
+    <Color name="MarkupExtension" foreground="#FFD7BA7D"/><!-- 金色 -->
+    <Color name="Namespace" foreground="#FF4EC9B0"/>    <!-- 青绿色 -->
+    <Color name="Property" foreground="#FF9CDCFE"/>     <!-- 天蓝色 -->
+    <Color name="Binding" foreground="#FFD7BA7D"/>      <!-- 金色 -->
+    
+    <RuleSet>
+        <!-- 注释 -->
+        <Span color="Comment" multiline="true">
+            <Begin>&lt;!--</Begin>
+            <End>--&gt;</End>
+        </Span>
+        
+        <!-- XAML 标签 -->
+        <Span color="Tag" multiline="true" ruleSet="TagContent">
+            <Begin color="TagBracket">&lt;</Begin>
+            <End color="TagBracket">&gt;</End>
+        </Span>
+
+        <!-- 标记扩展 -->
+        <Span color="MarkupExtension" multiline="true">
+            <Begin>{</Begin>
+            <End>}</End>
+        </Span>
+    </RuleSet>
+
+    <!-- 标签内容规则 -->
+    <RuleSet name="TagContent">
+        <!-- 命名空间前缀 -->
+        <Rule color="Namespace">
+            [\d\w_]+(?=:)
+        </Rule>
+
+        <!-- 属性名 -->
+        <Rule color="Property">
+            [\d\w_]+(?==)
+        </Rule>
+
+        <!-- 属性值 -->
+        <Span color="AttributeValue" begin="&quot;" end="&quot;">
+            <RuleSet>
+                <!-- 绑定表达式 -->
+                <Span color="Binding" begin="{Binding" end="}" />
+                <Span color="Binding" begin="{StaticResource" end="}" />
+                <Span color="Binding" begin="{DynamicResource" end="}" />
+            </RuleSet>
+        </Span>
+
+        <!-- 单引号字符串 -->
+        <Span color="String" begin="'" end="'" />
+    </RuleSet>
+</SyntaxDefinition> 
